@@ -9,5 +9,4 @@
       setState(() {
         connected = connection_ok;
       });
-    });
-```
+    });```

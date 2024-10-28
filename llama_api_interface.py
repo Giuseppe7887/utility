@@ -8,24 +8,22 @@ import requests, json
 # ? TO CONFIGURE HOST YOUT YOU NEED TO SET A GLOBAL VARIABLE
 # ? LOCAL VARIABLE EXAMPLE  (set OLLAMA_HOST=localhost:3000)
 
-while True:
-    prompt = input("> ")
-    res = requests.post("http://localhost:3000/api/generate",json={
-        "model":"llama3.1",
-        "prompt":str(prompt).strip()
-    },stream=True)
+def main():
+    while True:
+        prompt = input("> ")
+        res = requests.post("http://localhost:3000/api/generate",json={
+            "model":"llama3.1",
+            "prompt":str(prompt).strip()
+        },stream=True)
 
-    # Controlla lo stato della richiesta
-    if res.status_code == 200:
-        prev = ""
-
-        # Itera sul contenuto della risposta in chunks (pezzi)
-        for chunk in res.iter_lines():
-            if chunk:  # Se il chunk non è vuoto
-                # Decodifica il chunk JSON
-                data = json.loads(chunk.decode('utf-8'))
-                response = data["response"]  # Stampa o gestisci il JSON
-                print(prev + response)
-                prev += response
-    else:       
-        print("Errore:", res.status_code)
+        if res.status_code == 200:
+            prev = ""
+            for chunk in res.iter_lines():
+                if chunk: 
+                    data = json.loads(chunk.decode('utf-8'))
+                    response = data["response"] 
+                    print(prev + response)
+                    prev += response
+        else:       
+            print("Error:", res.status_code)
+    main()

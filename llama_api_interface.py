@@ -10,10 +10,12 @@ import requests, json
 #    WINDOWS set OLLAMA_HOST=localhost:3000
 #    LINUX export OLLAMA_HOST=localhost:3000
 
+HOST = "http://localhost:3000"
+
 def main():
     while True:
         prompt = input("> ")
-        res = requests.post("http://localhost:3000/api/generate",json={
+        res = requests.post(f"{HOST}/api/generate",json={
             "model":"llama3.1",
             "prompt":str(prompt).strip()
         },stream=True)

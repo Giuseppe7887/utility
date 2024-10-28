@@ -10,4 +10,4 @@
         connected = connection_ok;
       });
     });```
-* llama_api_interface.py : simple python api to comunicate with loca ollama server  
+* llama_api_interface.py : simple python api to comunicate with local ollama server  

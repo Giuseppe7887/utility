@@ -3,7 +3,7 @@ import requests, json
 # install ollama from: https://ollama.com/
 # download a model: https://ollama.com/library (ollama run llama3.2)
 # run:  ollama run llama3.2
-# run as  server: ollama serve
+# run as server: ollama serve
 
 # ? TO CONFIGURE HOST YOUT YOU NEED TO SET A GLOBAL VARIABLE
 # ? LOCAL VARIABLE EXAMPLE  (set OLLAMA_HOST=localhost:3000)

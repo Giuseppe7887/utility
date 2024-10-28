@@ -1,4 +1,8 @@
-import requests, json
+from json import loads
+from requests import post
+from os import system, environ
+from subprocess import Popen,DEVNULL
+import sys
 
 # install ollama from: https://ollama.com/
 # download a model: https://ollama.com/library (ollama run llama3.1)
@@ -10,24 +14,36 @@ import requests, json
 #    WINDOWS set OLLAMA_HOST=localhost:3000
 #    LINUX export OLLAMA_HOST=localhost:3000
 
-HOST = "http://localhost:3000"
+HOST: str = "http://localhost:3000"
+MODEL: str = "llama3.1"
+spin = False
 
-def main():
+environ["OLLAMA_HOST"] = HOST
+Popen(["ollama", "serve"],stdout=DEVNULL, stderr=DEVNULL)
+
+
+
+def main() -> None:
+    global spin
     while True:
         prompt = input("> ")
-        res = requests.post(f"{HOST}/api/generate",json={
-            "model":"llama3.1",
-            "prompt":str(prompt).strip()
-        },stream=True)
-
+        res = post(
+            f"{HOST}/api/generate",
+            json={"model": MODEL, "prompt": str(prompt).strip()},
+            stream=True
+        )
         if res.status_code == 200:
             prev = ""
             for chunk in res.iter_lines():
-                if chunk: 
-                    data = json.loads(chunk.decode('utf-8'))
-                    response = data["response"] 
+                if chunk:
+                    data = loads(chunk.decode("utf-8"))
+                    response = data["response"]
+                    system("cls" if sys.platform == "win32" else "clear")
                     print(prev + response)
                     prev += response
-        else:       
+        else:
             print("Error:", res.status_code)
+        
+
+
 main()

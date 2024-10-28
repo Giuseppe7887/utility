@@ -6,7 +6,9 @@ import requests, json
 # run as server: ollama serve
 
 # ? TO CONFIGURE HOST YOU NEED TO SET A GLOBAL VARIABLE
-# ? LOCAL VARIABLE EXAMPLE (set OLLAMA_HOST=localhost:3000)
+# ? LOCAL VARIABLE EXAMPLE
+#    WINDOWS set OLLAMA_HOST=localhost:3000
+#    LINUX export OLLAMA_HOST=localhost:3000
 
 def main():
     while True:

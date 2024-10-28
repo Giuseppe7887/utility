@@ -26,4 +26,4 @@ def main():
                     prev += response
         else:       
             print("Error:", res.status_code)
-    main()
+main()

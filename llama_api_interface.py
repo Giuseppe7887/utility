@@ -16,14 +16,12 @@ import sys
 
 HOST: str = "http://localhost:3000"
 MODEL: str = "llama3.1"
-spin = False
 
 environ["OLLAMA_HOST"] = HOST
 Popen(["ollama", "serve"], stdout=DEVNULL, stderr=DEVNULL)
 
 
 def main() -> None:
-    global spin
     print("Loading..")
     post(f"{HOST}/api/generate", json={"model": MODEL, "prompt": "hi"}, stream=True)
     system("cls" if sys.platform == "win32" else "clear")
